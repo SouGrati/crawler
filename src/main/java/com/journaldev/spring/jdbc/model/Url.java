@@ -1,6 +1,11 @@
 package com.journaldev.spring.jdbc.model;
 
-public class Url {
+import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public class Url implements Serializable{
 	 
     private int recordID;
     private String url;

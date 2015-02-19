@@ -5,7 +5,7 @@
   <groupId>org.springframework.samples</groupId>
   <artifactId>SpringJDBCPharma</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
 
   <name>SpringJDBCPharma</name>
   <url>http://maven.apache.org</url>
@@ -23,8 +23,22 @@
         <!-- Logging -->
         <logback.version>1.0.13</logback.version>
         <slf4j.version>1.7.5</slf4j.version>
- 
+ 		
+ 		<!-- jersey version -->
+ 		<jersey.version>2.15</jersey.version>
     </properties>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.glassfish.jersey</groupId>
+                <artifactId>jersey-bom</artifactId>
+                <version>${jersey.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
  
     <dependencies>
         <!-- Spring and Transactions -->
@@ -51,6 +65,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.0.5</version>
+            
         </dependency>
  
         <!-- Logging with SLF4J & LogBack -->
@@ -78,7 +93,60 @@
          	<artifactId>jsoup</artifactId>
          	<version>1.8.1</version>
          </dependency>
+         
+         
+         <!-- Ajout Jersey dependencies -->
+         
+         
+       <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet-core</artifactId>
+            <!-- use the following artifactId if you don't need servlet 2.x compatibility -->
+            <!-- artifactId>jersey-container-servlet</artifactId -->
+        </dependency>
+        <!-- uncomment this to get JSON support-->
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-moxy</artifactId>
+        </dependency>
+        
+        <!-- <dependency>
+        	<groupId>org.springframework</groupId>
+        	<artifactId>spring-jdbc</artifactId>
+        	<version>4.1.4.RELEASE</version>
+        </dependency>
+         
+        <dependency>
+        	<groupId>mysql</groupId>
+        	<artifactId>mysql-connector-java</artifactId>
+        	<version>5.1.34</version>
+        </dependency>
+        
+        <dependency>
+        	<groupId>org.springframework</groupId>
+        	<artifactId>spring-context</artifactId>
+        	<version>4.1.4.RELEASE</version>
+        </dependency>
+        -->
+        <dependency>
+        	<groupId>org.springframework</groupId>
+        	<artifactId>spring-beans</artifactId>
+        	<version>4.1.4.RELEASE</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.springframework</groupId>
+        	<artifactId>spring-core</artifactId>
+        	<version>4.1.4.RELEASE</version>
+        </dependency>
+        
+         <!-- slf4j-log4j 
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		-->
     </dependencies>
-
+	
 
 </project>
