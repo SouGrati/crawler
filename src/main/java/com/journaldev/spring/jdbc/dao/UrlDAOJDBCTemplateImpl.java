@@ -32,6 +32,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 
 
+
 import com.journaldev.spring.jdbc.model.Url;
  
 public class UrlDAOJDBCTemplateImpl implements UrlDAO {
@@ -129,7 +130,7 @@ public class UrlDAOJDBCTemplateImpl implements UrlDAO {
  
    */
     public List<Url> getAll() {
-        String query = "select recordID, url from recrd";
+        String query = "select recordID, url,adresse from recrd";
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         List<Url> empList = new ArrayList<Url>();
  
@@ -139,6 +140,7 @@ public class UrlDAOJDBCTemplateImpl implements UrlDAO {
             Url emp = new Url();
             emp.setRecordID(Integer.parseInt(String.valueOf(empRow.get("recordID"))));
             emp.setUrl(String.valueOf(empRow.get("url")));
+            emp.setAdresse(String.valueOf(empRow.get("adresse")));
             empList.add(emp);
         }
         return empList;
@@ -208,7 +210,7 @@ public class UrlDAOJDBCTemplateImpl implements UrlDAO {
 	//	System.out.println("Url saved::"+url.getUrl());
 		  Document doc = Jsoup.connect("http://www.anahna.com/pharmacies-agadir-ca7-qa0.html").timeout(10*1000).get(); 
 		   
-		   Elements newsHeadlines = doc.select("h1");
+		  Elements newsHeadlines = doc.select("h1");
 		  Elements questions = doc.select("div .right").select("p:eq(1)");
 		  Elements tels = doc.select("div.right").select("p:eq(2)");
 		 
@@ -249,5 +251,44 @@ public class UrlDAOJDBCTemplateImpl implements UrlDAO {
  
 }
 
+
+	public List<Url> getAllgarde() {
+		String query = "select recordID, url,adresse from recrd where garde=1 ";
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        List<Url> gardeList = new ArrayList<Url>();
+ 
+        List<Map<String,Object>> empRows = jdbcTemplate.queryForList(query);
+         
+        for(Map<String,Object> empRow : empRows){
+            Url emp = new Url();
+            emp.setRecordID(Integer.parseInt(String.valueOf(empRow.get("recordID"))));
+            emp.setUrl(String.valueOf(empRow.get("url")));
+            emp.setAdresse(String.valueOf(empRow.get("adresse")));
+            gardeList.add(emp);
+        }
+        return gardeList;
+	}
+	
+	
+    public Url recherche(String r) {
+        final String query = "select recordID, url from recrd where url like '%"+r+"%'";
+        final JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        Url url = jdbcTemplate.queryForObject
+        		(query, new Object[]{r}, new RowMapper<Url>(){
+ 
+        public Url mapRow(ResultSet rs, int rowNum) throws SQLException{
+                Url url = new Url();
+                url.setRecordID(rs.getInt("recordID"));
+                url.setUrl(rs.getString("url"));
+                Object[] args = new Object[] {url.getRecordID(), url.getUrl()};
+                return url;
+            }});
+    
+     
+    
+        return url;
+    }
+
+	
 
 	}

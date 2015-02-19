@@ -1,5 +1,10 @@
 package org.springframework.samples.SpringJDBCPharma;
 
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.journaldev.spring.jdbc.dao.UrlDAO;
+import com.journaldev.spring.jdbc.model.Url;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -34,5 +39,12 @@ public class AppTest
     public void testApp()
     {
         assertTrue( true );
+    }
+    
+    public void testRech(){
+    	ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        UrlDAO urlDAO = ctx.getBean("urlDAO", UrlDAO.class);
+        Url rtt=urlDAO.recherche("a");
+        System.out.println(rtt);
     }
 }
