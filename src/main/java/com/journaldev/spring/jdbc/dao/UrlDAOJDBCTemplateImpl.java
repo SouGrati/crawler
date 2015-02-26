@@ -270,24 +270,7 @@ public class UrlDAOJDBCTemplateImpl implements UrlDAO {
 	}
 	
 	
-    public Url recherche(String r) {
-        final String query = "select recordID, url from recrd where url like '%"+r+"%'";
-        final JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        Url url = jdbcTemplate.queryForObject
-        		(query, new Object[]{r}, new RowMapper<Url>(){
- 
-        public Url mapRow(ResultSet rs, int rowNum) throws SQLException{
-                Url url = new Url();
-                url.setRecordID(rs.getInt("recordID"));
-                url.setUrl(rs.getString("url"));
-                Object[] args = new Object[] {url.getRecordID(), url.getUrl()};
-                return url;
-            }});
-    
-     
-    
-        return url;
-    }
+  
 
 	
 

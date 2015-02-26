@@ -50,11 +50,5 @@ public class PharmaResource {
         return urlDAO.getAllgarde() ;
     }
     
-    @GET
-    @Path("/rech/{r}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Url recherche(@PathParam ("r")String r) {
-    	System.out.println("Recherche");
-        return urlDAO.recherche(r);
-    }
+   
 }

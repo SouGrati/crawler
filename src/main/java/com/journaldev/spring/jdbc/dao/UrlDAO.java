@@ -23,5 +23,4 @@ public interface UrlDAO {
     public int isUrlExists(String recordID);
     public boolean isPharmaGarde(String pharmacie) throws IOException;
 	public List<Url> getAllgarde();
-	public Url recherche(String r);
 }

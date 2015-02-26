@@ -44,7 +44,6 @@ public class AppTest
     public void testRech(){
     	ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         UrlDAO urlDAO = ctx.getBean("urlDAO", UrlDAO.class);
-        Url rtt=urlDAO.recherche("a");
-        System.out.println(rtt);
+        
     }
 }
