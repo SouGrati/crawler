@@ -1,9 +1,11 @@
 package com.journaldev.spring.jdbc.main;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
  
+
 
 
 import org.jsoup.Jsoup;
@@ -12,6 +14,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
  
+
 
 
 import com.journaldev.spring.jdbc.dao.UrlDAO;
@@ -31,7 +34,7 @@ public class SpringMain {
         //Run some tests for JDBC CRUD operations
        //  Url emp = new Url();
      urlDAO.runSql2("TRUNCATE recrd;");    
-     urlDAO.processPage("Grande Pharmacie d'Agadir","av. Mly Abdallah , imm. M1 Agadir","Tél.: 05 28 84 79 52",false);
+     urlDAO.processPage("Grande Pharmacie d'Agadir","av. Mly Abdallah , imm. M1 Agadir",BigDecimal.valueOf(30.4207298),BigDecimal.valueOf(-9.5971989),"Tél.: 05 28 84 79 52",false);
    //     int j=urlDAO.isUrlExists(20);
    //System.out.println("dfds"+j);
    /*     int rand = new Random().nextInt(1000);

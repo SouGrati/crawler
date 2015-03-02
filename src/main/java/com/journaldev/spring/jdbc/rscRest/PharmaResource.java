@@ -42,13 +42,13 @@ public class PharmaResource {
         return urlDAO.getAll() ;
     }
     
-    @GET
+    /* @GET
     @Path("/garde")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Url> getAllgarde() {
     	System.out.println("GADE");
         return urlDAO.getAllgarde() ;
-    }
+    }*/
     
    
 }
