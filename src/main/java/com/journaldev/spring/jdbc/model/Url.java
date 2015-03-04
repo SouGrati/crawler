@@ -18,6 +18,18 @@ public class Url implements Serializable {
 
 	public Url() {
 	}
+	
+	public Url(int recordID, String url, String adresse, BigDecimal lattitude,
+			BigDecimal longitude, String tel, boolean garde) {
+		super();
+		this.recordID = recordID;
+		this.url = url;
+		this.adresse = adresse;
+		this.lattitude = lattitude;
+		this.longitude = longitude;
+		this.tel = tel;
+		this.garde = garde;
+	}
 
 	public Url(int recordID, String url, String adresse, String tel,
 			boolean garde) {
