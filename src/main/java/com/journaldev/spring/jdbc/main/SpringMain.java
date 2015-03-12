@@ -17,7 +17,7 @@ public class SpringMain {
 		// Get the UrlDAO Bean
 		UrlDAO urlDAO = ctx.getBean("urlDAO", UrlDAO.class);
 
-		urlDAO.runSql2("TRUNCATE Recrd;");
+		urlDAO.runSql2("TRUNCATE recrd;");
 		// Parcourir la page et inserer les donnees dans la BD
 		urlDAO.processPage(urlDAO);
 		// Recuperer les Pharmacies d'agadir
