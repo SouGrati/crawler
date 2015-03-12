@@ -1,31 +1,34 @@
 package org.springframework.samples.SpringJDBCPharma;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
+import java.awt.Component;
+import java.awt.List;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import com.journaldev.spring.jdbc.dao.UrlDAO;
+import com.journaldev.spring.jdbc.model.Url;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.journaldev.spring.jdbc.dao.UrlDAO;
-import com.journaldev.spring.jdbc.model.Url;
+import org.mockito.Mockito;
 /**
  * Unit test for simple App.
  */
 public class AppTest   
-{
+{/*
     UrlDAO daoTest;
     Url pharmacie1=new Url(1,"pharma1","adress1","tel1",true);
-    Url pharmacie2=new Url(2,"pharma2","adress2","tel2",true);
+   Url pharmacie2=new Url(2,"pharma2","adress2","tel2",true);
    
 	@Before
 	public void setUp() throws Exception {
     	daoTest=mock(UrlDAO.class);
-        ArrayList<Url> lb=new ArrayList<Url>();
+        ArrayList lb=new ArrayList<Url>();
         lb.add(pharmacie1);
         lb.add(pharmacie2);
         when(daoTest.getAll()).thenReturn(lb);
@@ -68,9 +71,9 @@ public class AppTest
 	@Test
 	public void getAll(){
 		
-		ArrayList<Url> lb= (ArrayList<Url>) daoTest.getAll();
+		ArrayList lb= (ArrayList) daoTest.getAll();
 	     assertEquals(2, lb.size());
 	
-	}
+	}*/
 }
 
