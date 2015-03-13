@@ -44,5 +44,7 @@ public interface UrlDAO {
 	public GeocodeResponse geo(String a) throws IOException;
 
 	public List<Url> getAllGarde();
+	
+	public Url minDistance(float lat1, float lng1, float lat2, float lng2);
 
 }
