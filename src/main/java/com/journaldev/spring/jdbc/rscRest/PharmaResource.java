@@ -23,18 +23,6 @@ public class PharmaResource {
 	ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
     UrlDAO urlDAO = ctx.getBean("urlDAO", UrlDAO.class);
 	
-    /**
-     * Method handling HTTP GET requests. The returned object will be sent
-     * to the client as "text/plain" media type.
-     *
-     * @return String that will be returned as a text/plain response.
-     
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getIt() {
-        return "Got it!";
-    }
-    */
     @GET
     //@Produces("application/json")
     @Produces(MediaType.APPLICATION_JSON)
@@ -46,8 +34,16 @@ public class PharmaResource {
     @Path("/garde")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Url> getAllgarde() {
-    	System.out.println("GADE");
         return urlDAO.getAllGarde() ;
+    }
+    
+    @GET
+    @Path("/plusproche/{lat}/{lng}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Url getPlusProche(@PathParam("lat")Double lat,@PathParam("lng")Double lng) {
+    	int id=urlDAO.minDistance(lat,lng);
+    	System.out.println("§§§>"+id+"---->"+urlDAO.getById(id).toString());
+        return urlDAO.getById(id);
     }
     
    

@@ -9,7 +9,11 @@
 
 	<name>SpringJDBCPharma</name>
 	<url>http://maven.apache.org</url>
-
+	<scm>
+		<url>https://github.com/SouGrati/crawler</url>
+		<connection>scm:git:git://fgithub.com/SouGrati/crawler</connection>
+	</scm>
+	
 	<properties>
 
 		<!-- Generic properties -->
@@ -149,6 +153,58 @@
   		<version>1.7.10</version>
   	</dependency>
 	</dependencies>
-
+<profiles>
+		<profile>
+			<id>jenkins</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>0.7.4.201502262128</version>
+						<configuration>
+							<destFile>${project.basedir}/target/jacoco.exec</destFile>
+							<dataFile>${project.basedir}/target/jacoco.exec</dataFile>
+						</configuration>
+						<executions>
+							<execution>
+								<id>pre-unit-test</id>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+								<configuration>
+									<propertyName>surefireArgLine</propertyName>
+									<excludes>
+										<exclude>fr.cnsa.galaad.*</exclude>
+									</excludes>
+								</configuration>
+							</execution>
+							<execution>
+								<id>instrument</id>
+								<goals>
+									<goal>instrument</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>deinstrument</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>restore-instrumented-classes</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.15</version>
+						<configuration>
+							<argLine>${surefireArgLine}</argLine>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

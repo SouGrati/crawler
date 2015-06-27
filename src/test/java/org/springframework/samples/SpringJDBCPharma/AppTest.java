@@ -5,7 +5,10 @@ import java.awt.List;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.activation.DataSource;
+
 import com.journaldev.spring.jdbc.dao.UrlDAO;
+import com.journaldev.spring.jdbc.dao.UrlDAOJDBCTemplateImpl;
 import com.journaldev.spring.jdbc.model.Url;
 
 import static org.junit.Assert.*;
@@ -16,6 +19,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 /**
  * Unit test for simple App.
  */
@@ -75,5 +80,20 @@ public class AppTest
 	     assertEquals(2, lb.size());
 	
 	}*/
+	
+	@Test
+	public void distance() throws Exception {
+		ClassPathXmlApplicationContext ctxt =new ClassPathXmlApplicationContext("spring.xml");
+		UrlDAO u=ctxt.getBean("urlDAO",UrlDAOJDBCTemplateImpl.class);
+		double rtt=u.distance(-9.597159, 30.420566, -9.593359,30.420566);
+	}
+	
+	@Test
+	public void minDistance() throws Exception {
+		ClassPathXmlApplicationContext ctxt =new ClassPathXmlApplicationContext("spring.xml");
+		UrlDAO u=ctxt.getBean("urlDAO",UrlDAOJDBCTemplateImpl.class);
+		int rtt=u.minDistance(-9.530, 30.425821);
+	}
+	
 }
 

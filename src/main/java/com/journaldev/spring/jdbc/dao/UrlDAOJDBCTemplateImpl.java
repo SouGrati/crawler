@@ -6,9 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
 
 import javax.sql.DataSource;
 
@@ -257,8 +261,28 @@ public class UrlDAOJDBCTemplateImpl implements UrlDAO {
 	}
 
 	public Url getById(int recordID) {
-		// TODO Auto-generated method stub
-		return null;
+		final String query = "select recordID,url, adresse,tel,longitude,lattitude from recrd where recordID = ?";
+		final JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		Url url1 = jdbcTemplate.queryForObject(query, new Object[] { recordID },
+				new RowMapper<Url>() {
+
+					public Url mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						Url url = new Url();
+						url.setRecordID(rs.getInt("recordID"));
+						url.setUrl(rs.getString("url"));
+						url.setAdresse(rs.getString("adresse"));
+						url.setTel(rs.getString("tel"));
+						url.setLongitude(rs.getString("longitude"));
+						url.setLattitude(rs.getString("lattitude"));
+						Object[] args = new Object[] { url.getRecordID(),
+								url.getUrl(),url.getAdresse(),url.getTel(),url.getLongitude(),url.getLattitude() };
+
+						return url;
+					}
+				});
+
+		return url1;
 	}
 
 	public void processPage(UrlDAO urlDAO) throws IOException {
@@ -415,27 +439,41 @@ public class UrlDAOJDBCTemplateImpl implements UrlDAO {
 		return empList;
 	}
 
-	public float distance(float lat1, float lng1, float lat2, float lng2) {
-		    double earthRadius = 6371000; //meters
-		    double dLat = Math.toRadians(lat2-lat1);
-		    double dLng = Math.toRadians(lng2-lng1);
-		    double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-		               Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
-		               Math.sin(dLng/2) * Math.sin(dLng/2);
-		    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-		    float dist = (float) (earthRadius * c);
+	public double distance(double lat1, double lng1, double lat2, double lng2) {
+		double earthRadius = 6371000; // meters
+		double dLat = Math.toRadians(lat2 - lat1);
+		double dLng = Math.toRadians(lng2 - lng1);
+		double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+				+ Math.cos(Math.toRadians(lat1))
+				* Math.cos(Math.toRadians(lat2)) * Math.sin(dLng / 2)
+				* Math.sin(dLng / 2);
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		double dist = (double) (earthRadius * c);
 
-		    return dist;
-		    }
-
-	public Url minDistance(float lat1, float lng1, float lat2, float lng2) {
-		HashMap<Integer, Float> hmap = new HashMap<Integer, Float>();
-		List<Url> p=getAll();
-		for (Url url : p) {
-			hmap.put(((Url) p).getRecordID(),distance(Float.parseFloat(((Url)p).getLattitude()),Float.parseFloat(((Url)p).getLongitude()),lat2,lng2));
-		}
-		//Collections.sort(h);
-		return null;
+		return dist;
 	}
+
+	public int minDistance(double lat2, double lng2) {
+		HashMap<Integer, Double> hmap = new HashMap<Integer, Double>();
+		List<Url> list = this.getAll();
+		for (Url l : list) {
+			hmap.put(
+					l.getRecordID(),
+					distance(Double.parseDouble(l.getLattitude()),
+							Double.parseDouble(l.getLongitude()), lat2,
+							lng2));
+		}
+		//Map<Integer, Double> sortedMap = new TreeMap<Integer, Double>(hmap);
+		Double a=(Collections.min(hmap.values()));
+		int key=1;
+		for (Entry<Integer, Double> entry : hmap.entrySet()) {  // Itrate through hashmap
+            if (entry.getValue()==a) {
+                key=entry.getKey();     // Print the key with max value
+            }
+        }
+		return key;
+	}
+
+	
 
 }

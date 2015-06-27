@@ -45,6 +45,8 @@ public interface UrlDAO {
 
 	public List<Url> getAllGarde();
 	
-	public Url minDistance(float lat1, float lng1, float lat2, float lng2);
+	public int minDistance(double d, double e);
+
+	public double distance(double d, double e, double f, double g);
 
 }
