@@ -30,6 +30,12 @@
 
 		<!-- jersey version -->
 		<jersey.version>2.15</jersey.version>
+
+		<!-- sonar -->
+		<sonar.language>java</sonar.language>
+		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+		<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
 	</properties>
 
 	<dependencyManagement>
@@ -153,99 +159,77 @@
 			<version>1.7.10</version>
 		</dependency>
 	</dependencies>
+
+	<profiles>
+	<profile>
+	<id>jenkins</id>
+	
 	<build>
-		<finalName>${project.artifactId}</finalName>
-
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources</directory>
-			</testResource>
-		</testResources>
-
-		<plugins>
+	<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.16</version>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.4.201502262128</version>
 				<configuration>
-					<argLine>-XX:-UseSplitVerifier</argLine>
+					<includes>
+						<include>example.*</include>
+					</includes>
+					<destFile>${project.basedir}/../target/jacoco.exec</destFile>
 				</configuration>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.9</version>
-				<configuration>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
-					<additionalConfig>
-						<file>
-							<name>.settings/org.eclipse.core.resources.prefs</name>
-							<content>
-                                <![CDATA[eclipse.preferences.version=1 encoding/<project>=UTF-8]]>
-							</content>
-						</file>
-					</additionalConfig>
-					<useProjectReferences>false</useProjectReferences>
-					<wtpversion>2.0</wtpversion>
-				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
+	<!-- <plugins> -->
+	<!-- <plugin> -->
+	<!-- <groupId>org.jacoco</groupId> -->
+	<!-- <artifactId>jacoco-maven-plugin</artifactId> -->
+	<!-- <version>0.7.4.201502262128</version> -->
+	<!-- <configuration> -->
+	<!-- <destFile>${project.basedir}/target/jacoco.exec</destFile> -->
+	<!-- <dataFile>${project.basedir}/target/jacoco.exec</dataFile> -->
+	<!-- </configuration> -->
+	<!-- <executions> -->
+	<!-- <execution> -->
+	<!-- <id>pre-unit-test</id> -->
+	<!-- <goals> -->
+	<!-- <goal>prepare-agent</goal> -->
+	<!-- </goals> -->
+	<!-- <configuration> -->
+	<!-- <propertyName>surefireArgLine</propertyName> -->
+	<!-- </configuration> -->
+	<!-- </execution> -->
+	<!-- <execution> -->
+	<!-- <id>instrument</id> -->
+	<!-- <goals> -->
+	<!-- <goal>instrument</goal> -->
+	<!-- </goals> -->
+	<!-- </execution> -->
+	<!-- <execution> -->
+	<!-- <id>deinstrument</id> -->
+	<!-- <phase>pre-integration-test</phase> -->
+	<!-- <goals> -->
+	<!-- <goal>restore-instrumented-classes</goal> -->
+	<!-- </goals> -->
+	<!-- </execution> -->
+	<!-- </executions> -->
+	<!-- </plugin> -->
+	<!-- <plugin> -->
+	<!-- <groupId>org.apache.maven.plugins</groupId> -->
+	<!-- <artifactId>maven-surefire-plugin</artifactId> -->
+	<!-- <version>2.15</version> -->
+	<!-- <configuration> -->
+	<!-- <argLine>${surefireArgLine}</argLine> -->
+	<!-- </configuration> -->
+	<!-- </plugin> -->
+	<!-- </plugins> -->
 	</build>
-	<profiles>
-		<profile>
-			<id>jenkins</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.jacoco</groupId>
-						<artifactId>jacoco-maven-plugin</artifactId>
-						<version>0.7.4.201502262128</version>
-						<configuration>
-							<destFile>${project.basedir}/target/jacoco.exec</destFile>
-							<dataFile>${project.basedir}/target/jacoco.exec</dataFile>
-						</configuration>
-						<executions>
-							<execution>
-								<id>pre-unit-test</id>
-								<goals>
-									<goal>prepare-agent</goal>
-								</goals>
-								<configuration>
-									<propertyName>surefireArgLine</propertyName>
-								</configuration>
-							</execution>
-							<execution>
-								<id>instrument</id>
-								<goals>
-									<goal>instrument</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>deinstrument</id>
-								<phase>pre-integration-test</phase>
-								<goals>
-									<goal>restore-instrumented-classes</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.15</version>
-						<configuration>
-							<argLine>${surefireArgLine}</argLine>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
+	</profile>
 	</profiles>
 
 </project>
