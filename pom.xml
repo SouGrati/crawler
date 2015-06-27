@@ -11,7 +11,7 @@
 	<url>http://maven.apache.org</url>
 	<scm>
 		<url>https://github.com/SouGrati/crawler</url>
-		<connection>scm:git:git://fgithub.com/SouGrati/crawler</connection>
+		<connection>scm:git:git://github.com/SouGrati/crawler</connection>
 	</scm>
 
 	<properties>
