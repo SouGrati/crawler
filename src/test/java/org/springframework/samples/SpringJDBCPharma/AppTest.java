@@ -24,9 +24,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 /**
  * Unit test for simple App.
  */
-public class AppTest   
-{/*
-    UrlDAO daoTest;
+public class AppTest   {
+    UrlDAO daoTest = new UrlDAOJDBCTemplateImpl();
     Url pharmacie1=new Url(1,"pharma1","adress1","tel1",true);
    Url pharmacie2=new Url(2,"pharma2","adress2","tel2",true);
    
@@ -38,7 +37,6 @@ public class AppTest
         lb.add(pharmacie2);
         when(daoTest.getAll()).thenReturn(lb);
         when(daoTest.isUrlExists("pharma1")).thenReturn(1);
-        when(daoTest.isPharmaGarde("pharma1")).thenReturn(true);
         
 	}
 
@@ -61,25 +59,14 @@ public class AppTest
 	    assertEquals(1, daoTest.isUrlExists("pharma1"));
 		
 	}
-	@Test
-	public void isPharmaGarde(){
-
-		
-	    try {
-			assertEquals(true, daoTest.isPharmaGarde(pharmacie1.getUrl()));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
+	
 	@Test
 	public void getAll(){
 		
 		ArrayList lb= (ArrayList) daoTest.getAll();
 	     assertEquals(2, lb.size());
 	
-	}*/
+	}
 	
 	@Test
 	public void distance() throws Exception {

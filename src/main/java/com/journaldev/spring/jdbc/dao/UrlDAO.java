@@ -49,4 +49,6 @@ public interface UrlDAO {
 
 	public double distance(double d, double e, double f, double g);
 
+	public int isUrlExists(String pharma);
+
 }

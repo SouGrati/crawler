@@ -190,63 +190,7 @@ public class UrlDAOJDBCTemplateImpl implements UrlDAO {
 
 	}
 
-	// parcourir la page pour recuperer toutes les pharmacies
-	/*
-	 * public void processPage(String pharma,String adresse,String tel,boolean
-	 * garde,String lattitude,String longitude) throws IOException{ //check if
-	 * the given URL is already in database JdbcTemplate jdbcTemplate = new
-	 * JdbcTemplate(dataSource); ClassPathXmlApplicationContext ctx = new
-	 * ClassPathXmlApplicationContext("spring.xml"); UrlDAO urlDAO =
-	 * ctx.getBean("urlDAO", UrlDAO.class);
-	 * 
-	 * 
-	 * int n=urlDAO.isUrlExists(pharma);
-	 * 
-	 * // la pharma deja exist if(n==1){
-	 * 
-	 * 
-	 * 
-	 * }else{ Url url= new Url();
-	 * 
-	 * url.setUrl(pharma); url.setAdresse(adresse); url.setTel(tel);
-	 * url.setGarde(garde); url.setLat(lattitude); url.setLng(longitude);
-	 * urlDAO.save(url);
-	 * 
-	 * Document doc =
-	 * Jsoup.connect("http://www.anahna.com/pharmacies-agadir-ca7-qa0.html"
-	 * ).timeout(10*10000).get();
-	 * 
-	 * Elements newsHeadlines = doc.select("h1"); Elements questions =
-	 * doc.select("div .right").select("p:eq(1)"); Elements tels =
-	 * doc.select("div.right").select("p:eq(2)"); final Geocoder geocoder = new
-	 * Geocoder();
-	 * 
-	 * 
-	 * 
-	 * for (int i = 1; i <=newsHeadlines.size(); i++) { Element elem =
-	 * newsHeadlines.get(i); Element adress = questions.get(i-1); Element tele =
-	 * tels.get(i-1); boolean b=false; //localisation GeocodeResponse
-	 * geocoderResponse=geo(adress.text());
-	 * if(geocoderResponse.getResults().isEmpty()){
-	 * geocoderResponse=geo(adress.text()); }else{ lattitude =
-	 * geocoderResponse.getResults().get(0).getGeometry()
-	 * .getLocation().getLat(); longitude =
-	 * geocoderResponse.getResults().get(0).getGeometry()
-	 * .getLocation().getLng(); }
-	 * 
-	 * 
-	 * System.out.println(lattitude);
-	 * if((elem.text().contains("Pharmacie"))&&(tele.text().contains("05"))){
-	 * 
-	 * processPage(elem.text(),adress.text(),tele.text(),b,lattitude,longitude);
-	 * 
-	 * 
-	 * } }}
-	 * 
-	 * 
-	 * 
-	 * }
-	 */
+	
 	public GeocodeResponse geo(String a) throws IOException {
 		final Geocoder geocoder = new Geocoder();
 		GeocoderRequest geocoderRequest = new GeocoderRequestBuilder()
